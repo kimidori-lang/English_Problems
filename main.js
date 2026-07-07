@@ -1,4 +1,5 @@
 const problems = [{w:"5"}]; eruda.hide();
+console.log("main")
 if (!localStorage.hasOwnProperty("answer")){
 　localStorage.answer = "{}";
 };
