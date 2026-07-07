@@ -18,9 +18,11 @@ const likeToggle = document.createElement("div");
 const text3 = document.createElement("div");
 const continueButton = document.createElement("div");
 page.id = "page";
+page.innerText = "";
+page.style.cssText = "position:absolute;transform:translation(-50%,-50%);width:100%;height:100%;";
 document.body.append(page);
 startButton.innerText = "Start";
-startButton.style.cssText = "border-radius:15px;color:white;text-align:center;font-size:150%;border:solid;background-color:#0cc3ca;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80%;";
+startButton.style.cssText = "border-radius:35px;color:white;text-align:center;font-size:100px;border:solid;border-width:10px;background-color:#0cc3ca;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80%;";
 startButton.id = "startButton";
 startButton.addEventListener("click",c => {
 　const valueBox = document.getElementById("problemAmountBox");
@@ -146,11 +148,11 @@ mostWrongProblems.sort((a,b) => {
 	return (wordB.correct - wordB.wrong) - (wordA.correct - wordA.wrong);
 });
 if (mostWrongProblems.length > 20) mostWrongProblems.length = 20;
-if (mostWrongProblems.length > 0){
+if (!mostWrongProblems.length > 0){
 	const button = document.createElement("div");
 	button.id = "mostWrongProblemButton";
 	button.innerText = `最も間違えた問題(${mostWrongProblems.length}問)`;
-	button.style.cssText = "border-radius:15px;color:white;text-align:center;font-size:x-large;border:solid;background-color:#0cc3ca;position:absolute;top:95%;left:50%;transform:translate(-50%,-50%);width:80%;";
+	button.style.cssText = "align-content:center;border-radius:35px;color:white;text-align:center;font-size:300%;border:solid;background-color:#0cc3ca;position:absolute;top:95%;left:50%;transform:translate(-50%,-50%);width:80%;";
 	button.addEventListener("click",ev => {
 		showProblem({newProblems:randomSort(mostWrongProblems),failureProblems:[],index:0,success:0,runCount:1,mode:document.getElementById("modeChangeButton").ariaLevel,mostWrongProblem:true});
 　});
@@ -178,10 +180,10 @@ likeToggle.addEventListener("click",ev => {
 　add(text);
 　add(box);
 });
-if (getStorage("playData")){
+if (!getStorage("playData")){
 　continueButton.id = "continueButton";
 　continueButton.innerText = "続きから";
-　continueButton.style.cssText = "border-radius:15px;color:white;background-color:#0cc3ca;text-align:center;position:absolute;top:64%;left:50%;border:solid;transform:translate(-50%,-50%);width:100px;";
+　continueButton.style.cssText = "font-size:250%;border-radius:35px;color:white;background-color:#0cc3ca;text-align:center;position:absolute;top:64%;left:50%;border:solid;transform:translate(-50%,-50%);width:40%;";
 　continueButton.addEventListener("click",ev => {
 　console.log(getStorage("playData"))
 　　showProblem(getStorage("playData"));
@@ -191,8 +193,8 @@ if (getStorage("playData")){
 likeToggle.id = "likeToggle";
 likeToggle.ariaLevel = "off";
 likeToggle.innerText = "OFF";
-likeToggle.style.cssText = "align-content:center;height:30px;border-radius:15px;font-size:x-large;text-align:center;position:absolute;top:11%;left:20%;transform:translate(-50%,-50%);background-color:#ff9b00;border:solid;width:100px;color:white;";
-if (getStorage("likes").length > 0){
+likeToggle.style.cssText = "align-content:center;border-radius:35px;font-size:60px;text-align:center;position:absolute;top:11%;left:20%;transform:translate(-50%,-50%);background-color:#ff9b00;border:solid;border-width:10px;width:30%;height:90px;color:white;";
+if (!getStorage("likes").length > 0){
 　add(likeToggle);
 　add(text3);
 };
@@ -209,20 +211,20 @@ modeChangeButton.addEventListener("click",ev => {
 　add(t);
 });
 modeChangeButton.innerText = "ノーマル";
-modeChangeButton.style.cssText = "align-content:center;height:30px;border-radius:15px;color:white;background-color:#ff9b00;font-size:x-large;text-align:center;border:solid;position:absolute;top:11%;left:80%;transform:translate(-50%,-50%);width:100px;";
+modeChangeButton.style.cssText = "align-content:center;height:90px;border-width:20px;border-radius:35px;color:white;background-color:#ff9b00;font-size:50px;text-align:center;border:solid;border-width:10px;position:absolute;top:11%;left:80%;transform:translate(-50%,-50%);width:30%;font-weight:700;";
 modeChangeButton.ariaLevel = "1";
 modeChangeButton.id = "modeChangeButton";
 text1.id = "text1";
 text1.innerText = `問題数(最大${problems.length})`;
-text1.style.cssText = "position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);";
+text1.style.cssText = "font-size:50px;position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);";
 text2.innerText = "モード";
-text2.style.cssText = "position:absolute;top:5%;left:80%;transform:translate(-50%,-50%);";
+text2.style.cssText = "font-size:50px;position:absolute;top:5%;left:80%;transform:translate(-50%,-50%);";
 text3.innerText = "お気に入り";
-text3.style.cssText = "position:absolute;top:5%;left:20%;transform:translate(-50%,-50%);";
+text3.style.cssText = "font-size:50px;position:absolute;top:5%;left:20%;transform:translate(-50%,-50%);";
 problemAmountBox.type = "number";
 problemAmountBox.id = "problemAmountBox";
 problemAmountBox.defaultValue = problems.length;
-problemAmountBox.style.cssText = "border-radius:15px;background-color:#dadedf;font-size:large;text-align:center;position:absolute;top:30%;left:50%;transform:translate(-50%,50%);";
+problemAmountBox.style.cssText = "border-radius:35px;border-width:10px;background-color:#dadedf;font-size:50px;text-align:center;position:absolute;top:30%;left:50%;transform:translate(-50%,50%);";
 add(startButton);
 add(problemAmountBox);
 add(text1);
@@ -246,7 +248,7 @@ if (i < newProblems.length){
 　word.id = "word";
 　if (mode === "1"){
 　　word.innerText = newProblems[i].word;
-　　word.style.cssText = "font-size:x-large;position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);";
+　　word.style.cssText = "font-size:50px;position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);";
 　} else {
 　　const nowProblem = newProblems[i];
 　　let wordMeanings = nowProblem.meanings.filter(e => {
@@ -262,13 +264,13 @@ if (i < newProblems.length){
 　　});
 　　if (wordMeanings.length <= 0) word.innerText = nowProblem.meanings.join();
 　　else word.innerText = wordMeanings.join();
-　　word.style.cssText = `text-align:center;position:absolute;top:30%;left:50%;width:95%;`;
+　　word.style.cssText = `font-size:50px;text-align:center;position:absolute;top:30%;left:50%;width:95%;`;
 　};
 　textBox.id = "textBox";
-　textBox.style.cssText = "border-radius:15px;backgound-color:#dadedf;font-size:large;text-align:center;position:absolute;top:30%;left:50%;transform:translate(-50%,50%);";
+　textBox.style.cssText = "border-width:10px;border-radius:35px;background-color:#dadedf;font-size:50px;text-align:center;position:absolute;top:30%;left:50%;transform:translate(-50%,50%);width:75%;";
 　submitButton.innerText = "送信";
 　submitButton.id = "submitButton";
-　submitButton.style.cssText = "border-radius:15px;position:absolute;top:30%;left:50%;transform:translate(128px,14px);height:25px;";
+　submitButton.style.cssText = "border-width:10px;align-content:center;font-size:225%;border-radius:35px;background-color:#dadedf;position:absolute;top:35.2%;left:92.5%;transform:translate(-50px,-50px);width:130px";
 　submitButton.addEventListener("click",() => {
 　　const answeredTextBox = document.getElementById("textBox");
 　　const button = document.getElementById("submitButton");
@@ -278,7 +280,7 @@ if (i < newProblems.length){
 　　const read = document.createElement("div");
 　　const like = document.createElement("div");
 　　const nowProblem = newProblems[i];
-  　  const storage = getStorage("answer");
+　　const storage = getStorage("answer");
 　　const filterMeanings = nowProblem.meanings.map(e => e.replaceAll(/\(.*?\)/g,""));
 　　let answerCheck = mode === "1" ? filterMeanings.includes(document.getElementById("textBox").value?.trim()) : nowProblem.word === document.getElementById("textBox").value?.trim();
 　　if (answerCheck){
@@ -302,13 +304,13 @@ if (i < newProblems.length){
 　　button.style.cssText
 　　meanings.innerText = mode === "1" ? newProblems[i].meanings.join() : newProblems[i].word;
 　　meanings.id = "meanings";
-　　meanings.style.cssText = "position:absolute;top:41%;left:10%;width:80%;";
+　　meanings.style.cssText = "font-size:50px;position:absolute;top:41%;left:10%;width:80%;";
 　　if (mode === "2") meanings.style.cssText = `${meanings.style.cssText}text-align:center;`;
 　　read.innerText = `${newProblems[i].read}`;
-　　read.style.cssText = "text-align:center;color:#b8bdbe;font-size:large;position:absolute;top:39%;left:50%;transform:translate(-50%,-50%);width:100%;";
+　　read.style.cssText = "text-align:center;color:#b8bdbe;font-size:50px;position:absolute;top:39%;left:50%;transform:translate(-50%,-50%);width:100%;";
 　　answeredIndexText.innerText = `${++i}/${newProblems.length}`;
 　　nextButton.innerText = "Next";
-　　nextButton.style.cssText = "border-radius:15px;color:white;text-align:center;font-size:xxx-large;border:solid;background-color:#0cc3ca;position:absolute;top:90%;left:50%;transform:translate(-50%,-50%);width:80%;";
+　　nextButton.style.cssText = "border-radius:35px;color:white;text-align:center;font-size:150px;border:solid;background-color:#0cc3ca;position:absolute;top:90%;left:50%;transform:translate(-50%,-50%);width:80%;border-width:10px;";
 　　nextButton.id = "nextButton";
 　　const newObj = {newProblems:newProblems,failureProblems:failureProblems,index:i,success:success,runCount:runCount,mode:mode,mostWrongProblem:obj.mostWrongProblem,like:likeProblem};
 　　nextButton.addEventListener("click",() => {
@@ -321,7 +323,7 @@ if (i < newProblems.length){
 　　　like.innerText = "☆";
 　　　like.ariaLevel = "off";
 　　};
-　　like.style.cssText = "align-content:center;border-radius:15px;font-size:xx-large;text-align:center;position:absolute;top:10%;left:90%;transform:translate(-50%,-50%);border:solid;color:white;background-color:#ff9b00;width:40px;height:40px;";
+　　like.style.cssText = "align-content:center;border-radius:35px;font-size:70px;text-align:center;position:absolute;top:10%;left:90%;transform:translate(-50%,-50%);border:solid;color:white;background-color:#ff9b00;width:105px;height:105px;align-content:center;";
 　　like.addEventListener("click",ev => {
 　　　const t = ev.target;
 　　　let likes = getStorage("likes");
@@ -349,7 +351,7 @@ if (i < newProblems.length){
 　　setStorage("playData",newObj);
 　},{once:true});
 　indexText.innerText = `${i}/${newProblems.length}`;
-　indexText.cssText = "font-size:large;";
+　indexText.style.cssText = "font-size:80px;";
 　indexText.id = "indexText";
 　add(word);
 　add(textBox);
@@ -367,17 +369,17 @@ if (i < newProblems.length){
 　const text4 = document.createElement("div");
 　const text5 = document.createElement("div");
 　text1.innerText = "正解数";
-　text1.style.cssText = "position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);";
+　text1.style.cssText = "font-size:50px;position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);";
 　text2.innerText = `${success}/${newProblems.length}`;
-　text2.style.cssText = "font-size:xxx-large;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);";
+　text2.style.cssText = "font-size:100px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);";
 　text3.innerText = `${runCount}回目`;
-　text3.style.cssText = "font-size:medium;position:absolute;top:40%;left:50%;transform:translate(-50%,-200%);";
+　text3.style.cssText = "font-size:50px;position:absolute;top:40%;left:50%;transform:translate(-50%,-200%);";
 　text4.innerText = `${(100*(success/newProblems.length)).toFixed(1)}%`;
-　text4.style.cssText = "font-size:xx-large;position:absolute;top:50%;left:50%;transform:translate(-50%,100%);";
-　text5.style.cssText = "text-align:center;width:100%;font-size:xxx-large;position:absolute;top:10%;left:50%;transform:translate(-50%,-50%);";
+　text4.style.cssText = "font-size:80px;position:absolute;top:50%;left:50%;transform:translate(-50%,100%);";
+　text5.style.cssText = "text-align:center;width:100%;font-size:90px;position:absolute;top:10%;left:50%;transform:translate(-50%,-50%);";
 　if (success >= newProblems.length){
 　　text2.style.cssText = `${text2.style.cssText}color:#4dc764;`;
-　　text4.style.cssText = `${text4.style.cssText}color:#4dc764;font-size:xxx-large;font-weight:bold;`;
+　　text4.style.cssText = `${text4.style.cssText}color:#4dc764;font-size:100px;font-weight:bold;`;
 　} else if (success <= 0){
 　　text4.style.cssText = `${text4.style.cssText}color:#d90429;`;
 　};
@@ -392,14 +394,14 @@ if (i < newProblems.length){
 　if (obj.mostWrongProblem){
 　　const subTitle = document.createElement("div");
 　　subTitle.innerText = "最も間違えた問題";
-　　subTitle.style.cssText = "text-align:center;width:100%;font-size:xx-large;position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);";
+　　subTitle.style.cssText = "text-align:center;width:100%;font-size:80px;position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);border-width:10px;";
 　　add(subTitle);
 　};
 　if (failureProblems.length > 0){
 　　const newObj2 = {newProblems:randomSort(failureProblems),failureProblems:[],index:0,success:0,runCount:++runCount,mode:mode,mostWrongProblem:obj.mostWrongProblem,like:likeProblem};
 　　const newProblemButton = document.createElement("div");
 　　newProblemButton.innerText = "間違えた問題";
-　　newProblemButton.style.cssText = "border-radius:15px;color:white;text-align:center;font-size:xxx-large;border:solid;background-color:#0cc3ca;position:absolute;top:90%;left:50%;transform:translate(-50%,-50%);width:80%;";
+　　newProblemButton.style.cssText = "border-radius:15px;color:white;text-align:center;font-size:100px;border:solid;background-color:#0cc3ca;position:absolute;top:90%;left:50%;transform:translate(-50%,-50%);width:80%;border-width:10px;";
 　　newProblemButton.id = "nextButton";
 　　newProblemButton.addEventListener("click",() => {
 　　　showProblem(newObj2);
@@ -447,5 +449,7 @@ document.getElementById("page").replaceChildren();
 };
 
 function add(e){
-return document.body.append(document.getElementById("page").append(e));
+const page = document.getElementById("page");
+page.append(e)
+return document.body.append(page);
 };
