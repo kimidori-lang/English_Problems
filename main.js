@@ -1,4 +1,4 @@
-const problems = [{word:"5",read:"t",meanings:["5"]}]; eruda.hide();
+const problems = [{word:"5",read:"t",meanings:["5"]}]; //eruda.hide();
 console.log("main")
 if (!localStorage.hasOwnProperty("answer")){
 　localStorage.answer = "{}";
