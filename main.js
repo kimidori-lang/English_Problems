@@ -263,7 +263,7 @@ if (i < newProblems.length){
 　　word.style.cssText = `text-align:center;position:absolute;top:30%;left:50%;width:95%;`;
 　};
 　textBox.id = "textBox";
-    textBox.style.cssText = "border-radius:15px;backgound-color:#dadedf;font-size:large;text-align:center;position:absolute;top:30%;left:50%;transform:translate(-50%,50%);";
+　textBox.style.cssText = "border-radius:15px;backgound-color:#dadedf;font-size:large;text-align:center;position:absolute;top:30%;left:50%;transform:translate(-50%,50%);";
 　submitButton.innerText = "送信";
 　submitButton.id = "submitButton";
 　submitButton.style.cssText = "border-radius:15px;position:absolute;top:30%;left:50%;transform:translate(128px,14px);height:25px;";
@@ -346,7 +346,7 @@ if (i < newProblems.length){
 　　document.body.append(like);
 　　setStorage("playData",newObj);
 　},{once:true});
-    indexText.innerText = `${i}/${newProblems.length}`;
+　indexText.innerText = `${i}/${newProblems.length}`;
 　indexText.cssText = "font-size:large;";
 　indexText.id = "indexText";
 　document.body.append(word);
