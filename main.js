@@ -1,4 +1,4 @@
-const problems = [{w:"5"}]; eruda.hide();
+//const problems = [{w:"5"}]; eruda.hide();
 console.log("main")
 if (!localStorage.hasOwnProperty("answer")){
 　localStorage.answer = "{}";
@@ -302,63 +302,62 @@ if (i < newProblems.length){
 　　meanings.id = "meanings";
 　　meanings.style.cssText = "position:absolute;top:41%;left:10%;width:80%;";
 　　if (mode === "2") meanings.style.cssText = `${meanings.style.cssText}text-align:center;`;
-　　　read.innerText = `${newProblems[i].read}`;
-　　　read.style.cssText = "text-align:center;color:#b8bdbe;font-size:large;position:absolute;top:39%;left:50%;transform:translate(-50%,-50%);width:100%;";
-　　　answeredIndexText.innerText = `${++i}/${newProblems.length}`;
-　　　nextButton.innerText = "Next";
-　　　nextButton.style.cssText = "border-radius:15px;color:white;text-align:center;font-size:xxx-large;border:solid;background-color:#0cc3ca;position:absolute;top:90%;left:50%;transform:translate(-50%,-50%);width:80%;";
-　　　nextButton.id = "nextButton";
-　　　const newObj = {newProblems:newProblems,failureProblems:failureProblems,index:i,success:success,runCount:runCount,mode:mode,mostWrongProblem:obj.mostWrongProblem,like:likeProblem};
-　　　nextButton.addEventListener("click",() => {
-　　　　showProblem(newObj);
-　　　},{once:true});
-　　　if (getStorage("likes").includes(newProblems[i - 1].word)){
-　　　　like.innerText = "★";
-　　　　like.ariaLevel = "on";
-　　　} else {
-　　　　like.innerText = "☆";
-　　　　like.ariaLevel = "off";
-　　　};
-　　　like.style.cssText = "align-content:center;border-radius:15px;font-size:xx-large;text-align:center;position:absolute;top:10%;left:90%;transform:translate(-50%,-50%);border:solid;color:white;background-color:#ff9b00;width:40px;height:40px;";
-　　　like.addEventListener("click",ev => {
-　　　　const t = ev.target;
-　　　　let likes = getStorage("likes");
-　　　　const nowWord = newProblems[i - 1].word;
-　　　　if (t.ariaLevel === "off"){
-　　　　　t.ariaLevel = "on";
-　　　　　t.innerText = "★";
-　　　　　if (!likes.includes(nowWord)) likes.push(nowWord);
-　　　　} else if (t.ariaLevel === "on"){
-　　　　　t.ariaLevel = "off";
-　　　　　t.innerText = "☆";
-　　　　　if (likes.includes(nowWord)) likes = likes.filter(e => e !== nowWord);
-　　　　};
-　　　　pushAnimation(t);
-　　　　document.body.append(t);
-　　　　setStorage("likes",likes);
-　　　});
-　　　document.body.append(answeredTextBox);
-　　　document.body.append(button);
-　　　document.body.append(meanings);
-　　　document.body.append(answeredIndexText);
-　　　document.body.append(nextButton);
-　　　document.body.append(read);
-　　　document.body.append(like);
-　　　setStorage("playData",newObj);
+　　read.innerText = `${newProblems[i].read}`;
+　　read.style.cssText = "text-align:center;color:#b8bdbe;font-size:large;position:absolute;top:39%;left:50%;transform:translate(-50%,-50%);width:100%;";
+　　answeredIndexText.innerText = `${++i}/${newProblems.length}`;
+　　nextButton.innerText = "Next";
+　　nextButton.style.cssText = "border-radius:15px;color:white;text-align:center;font-size:xxx-large;border:solid;background-color:#0cc3ca;position:absolute;top:90%;left:50%;transform:translate(-50%,-50%);width:80%;";
+　　nextButton.id = "nextButton";
+　　const newObj = {newProblems:newProblems,failureProblems:failureProblems,index:i,success:success,runCount:runCount,mode:mode,mostWrongProblem:obj.mostWrongProblem,like:likeProblem};
+　　nextButton.addEventListener("click",() => {
+　　　showProblem(newObj);
 　　},{once:true});
-   　  indexText.innerText = `${i}/${newProblems.length}`;
-   　  indexText.cssText = "font-size:large;";
-  　   indexText.id = "indexText";
-   　  document.body.append(word);
-    　 document.body.append(textBox);
-   　  document.body.append(submitButton);
-    　 document.body.append(indexText);
-　　if (mode === "2"){
-　　　const newWord = document.getElementById("word");
-　　　newWord.style.cssText = `${newWord.style.cssText}transform:translate(-50%,-${newWord.getBoundingClientRect().height - 5}px)`;
-　　　document.body.append(newWord);
+　　if (getStorage("likes").includes(newProblems[i - 1].word)){
+　　　like.innerText = "★";
+　　　like.ariaLevel = "on";
+　　} else {
+　　　like.innerText = "☆";
+　　　like.ariaLevel = "off";
 　　};
-　});
+　　like.style.cssText = "align-content:center;border-radius:15px;font-size:xx-large;text-align:center;position:absolute;top:10%;left:90%;transform:translate(-50%,-50%);border:solid;color:white;background-color:#ff9b00;width:40px;height:40px;";
+　　like.addEventListener("click",ev => {
+　　　const t = ev.target;
+　　　let likes = getStorage("likes");
+　　　const nowWord = newProblems[i - 1].word;
+　　　if (t.ariaLevel === "off"){
+　　　　t.ariaLevel = "on";
+　　　　t.innerText = "★";
+　　　　if (!likes.includes(nowWord)) likes.push(nowWord);
+　　　} else if (t.ariaLevel === "on"){
+　　　　t.ariaLevel = "off";
+　　　　t.innerText = "☆";
+　　　　if (likes.includes(nowWord)) likes = likes.filter(e => e !== nowWord);
+　　　};
+　　　pushAnimation(t);
+　　　document.body.append(t);
+　　　setStorage("likes",likes);
+　　});
+　　document.body.append(answeredTextBox);
+　　document.body.append(button);
+　　document.body.append(meanings);
+　　document.body.append(answeredIndexText);
+　　document.body.append(nextButton);
+　　document.body.append(read);
+　　document.body.append(like);
+　　setStorage("playData",newObj);
+　},{once:true});
+    indexText.innerText = `${i}/${newProblems.length}`;
+　indexText.cssText = "font-size:large;";
+　indexText.id = "indexText";
+　document.body.append(word);
+　document.body.append(textBox);
+　document.body.append(submitButton);
+　document.body.append(indexText);
+　if (mode === "2"){
+　　const newWord = document.getElementById("word");
+　　newWord.style.cssText = `${newWord.style.cssText}transform:translate(-50%,-${newWord.getBoundingClientRect().height - 5}px)`;
+　　document.body.append(newWord);
+　};
 } else {
 　const text1 = document.createElement("div");
 　const text2 = document.createElement("div");
