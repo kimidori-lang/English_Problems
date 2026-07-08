@@ -259,8 +259,11 @@ if (i < newProblems.length){
 　　　return excludeKana;
 　　});
 　　if (wordMeanings.length <= 0) word.innerText = nowProblem.meanings.join();
-　　else word.innerText = wordMeanings.join();
-　　word.style.cssText = `text-align:center;position:absolute;top:30%;left:50%;width:95%;`;
+　　else {
+　　　word.innerText = wordMeanings.join();
+　　　word.style.cssText = "font-size:large;";
+　　};
+　　word.style.cssText = `${word.style.cssText}text-align:center;position:absolute;top:30%;left:50%;width:95%;`;
 　};
 　textBox.id = "textBox";
 　textBox.style.cssText = "border-radius:15px;backgound-color:#dadedf;font-size:large;text-align:center;position:absolute;top:30%;left:50%;transform:translate(-50%,50%);";
@@ -276,9 +279,16 @@ if (i < newProblems.length){
 　　const read = document.createElement("div");
 　　const like = document.createElement("div");
 　　const nowProblem = newProblems[i];
-  　  const storage = getStorage("answer");
+　　const storage = getStorage("answer");
 　　const filterMeanings = nowProblem.meanings.map(e => e.replaceAll(/\(.*?\)/g,""));
-　　let answerCheck = mode === "1" ? filterMeanings.includes(document.getElementById("textBox").value?.trim()) : nowProblem.word === document.getElementById("textBox").value?.trim();
+　　let answerCheck = false;
+　　if (mode === "1"){
+	　　answerCheck = filterMeanings.some(e => {
+		　　const value = document.getElementById("textBox").value?.trim();
+　　　　if (e.includes("[")) return e.replaceAll("[","").replaceAll("]","") === value || e.replaceAll(/\[.*?\]/g,"") === value;
+　　　　　else return e === value;
+　　　});
+　　} else answerCheck = nowProblem.word === document.getElementById("textBox").value?.trim();
 　　if (answerCheck){
 　　　button.innerText = "️〇";
 　　　button.style.cssText = `${button.style.cssText}background-color:#4dc764;`;
@@ -300,8 +310,8 @@ if (i < newProblems.length){
 　　button.style.cssText
 　　meanings.innerText = mode === "1" ? newProblems[i].meanings.join() : newProblems[i].word;
 　　meanings.id = "meanings";
-　　meanings.style.cssText = "position:absolute;top:41%;left:10%;width:80%;";
-　　if (mode === "2") meanings.style.cssText = `${meanings.style.cssText}text-align:center;`;
+　　meanings.style.cssText = "font-size:large;position:absolute;top:41%;left:5%;width:90%;";
+　　if (mode === "2") meanings.style.cssText = `${meanings.style.cssText}text-align:center;font-size:x-large;`;
 　　read.innerText = `${newProblems[i].read}`;
 　　read.style.cssText = "text-align:center;color:#b8bdbe;font-size:large;position:absolute;top:39%;left:50%;transform:translate(-50%,-50%);width:100%;";
 　　answeredIndexText.innerText = `${++i}/${newProblems.length}`;
