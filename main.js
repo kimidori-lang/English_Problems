@@ -1,4 +1,5 @@
 //const problems = [{word:"5",read:"t",meanings:["5"]}]; //eruda.hide();
+const testProblem = [{word:"a",read:"あ",meanings:["[あ]か[さ][た][あ]"]}]
 if (!localStorage.hasOwnProperty("answer")){
 　localStorage.answer = "{}";
 };
@@ -95,7 +96,9 @@ startButton.addEventListener("click",c => {
 　　　} else {
 　　　　t.style.cssText = `${t.style.cssText}background-color:#d90429;`;
 　　　};
-　　　add(t);
+　　});
+　　startButton.addEventListener("click",ev => {
+　　　showProblem({newProblems:testProblem,failureProblems:[],index:0,success:0,runCount:1,mode:document.getElementById("modeChangeButton").ariaLevel})
 　　});
 　　if (missMeaning.length > 0){
 　　　console.log("MissMeaningWords:",missMeaning);
@@ -134,7 +137,7 @@ startButton.addEventListener("click",c => {
 　if (likeToggle === "on") newProblems = randomSort(problems.filter(e => getStorage("likes").includes(e.word)));
 　if (Number.isFinite(problemLength) && problemLength > 0 && problemLength <= newProblems.length) newProblems.length = problemLength;
 　showProblem({newProblems:newProblems,failureProblems:[],index:0,success:0,runCount:1,mode:mode,like:likeToggle === "on"});
-});
+},{once:true});
 setStorage("likes",getStorage("likes").filter(e => problems.some(E => E.word === e)));
 const mostWrongProblems = [];
 const answers = getStorage("answer");
@@ -298,10 +301,35 @@ if (i < newProblems.length){
 　　const filterMeanings = nowProblem.meanings.map(e => e.replaceAll(/\(.*?\)/g,""));
 　　let answerCheck = false;
 　　if (mode === "1"){
+　　　const value = document.getElementById("textBox").value?.trim();
 	　　answerCheck = filterMeanings.some(e => {
-		　　const value = document.getElementById("textBox").value?.trim();
-　　　　if (e.includes("[")) return e.replaceAll("[","").replaceAll("]","") === value || e.replaceAll(/\[.*?\]/g,"") === value;
-　　　　　else return e === value;
+　　　　if (e.match(/\[.*?\]/g)){
+　　　　　const text = e.replaceAll(/\[|\]/g,"");
+　　　　　let newE = e
+　　　　　for (let i = 0;i < e.match(/\[.*?\]/g).length;++i){
+　　　　　　newE = newE.replace(/(?<=\[[^#]*)\]/,`#${i}]`);
+　　　　　};
+　　　　　const anyTexts = newE.match(/\[.*?\]/g);
+　　　　　const length = anyTexts.length;
+　　　　　const loop = (index,indexList = []) => {
+　　　　　　for (let i = 0;i < index;++i){
+　　　　　　　let newText = newE;
+　　　　　　　indexList = indexList.filter(e => e > i);
+　　　　　　　[...indexList,i].forEach(i => {
+　　　　　　　　newText = newText.replace(anyTexts[i],"");
+　　　　　　　});
+　　　　　　　newText = newText.replaceAll(/\[|#\d*?\]/g,"");
+　　　　　　　texts.push(newText);
+　　　　　　　if (i > 0 && (indexList.length <= 0 || indexList.every(e => i < e))){
+　　　　　　　　indexList.push(i);
+　　　　　　　　loop(i,indexList);
+　　　　　　　};
+　　　　　　};
+　　　　　};
+　　　　　const texts = [];
+　　　　　loop(anyTexts.length);
+　　　　　return text === value || texts.includes(value);
+　　　　}　else return e === value;
 　　　});
 　　} else answerCheck = nowProblem.word === document.getElementById("textBox").value?.trim();
 　　if (answerCheck){
